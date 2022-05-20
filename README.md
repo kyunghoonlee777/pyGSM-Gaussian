@@ -13,12 +13,15 @@ six
 matplotlib
 networkx
 scipy
+cclib
+
 To install those packages, run following commands
 1. `conda install -c anaconda numpy` (normally this is well installed within anaconda3, if import numpy works, this is not required)
 2. `conda install -c conda-forge six`
 3. `conda install -c conda-forge matplotlib`
 4. `conda install -c conda-forge networkx`
 5. `conda install -c conda-forge scipy`
+6. `conda install -c conda-forge cclib`
 
 # Gaussian setup
 First, you must identify whether gaussian can run well. In case of Gaussian09, check it by `which g09`. If you want to run `g16`, after checking `which g16`, you need to change the variable `command` in `pygsm/level_of_theories/gaussian.py` as 'g16' (`command=g16`)

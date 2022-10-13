@@ -203,7 +203,6 @@ class Lot(object):
         self._Energies={}
         self._Gradients={}
         self._Couplings={}
-        self.working_directory = '/scratch/lkh/'
 
         # count number of states
         singlets = self.search_tuple(self.states, 1)

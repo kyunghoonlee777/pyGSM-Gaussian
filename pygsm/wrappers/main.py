@@ -43,6 +43,8 @@ def parse_arguments(verbose=True):
                         help="Electronic structure theory package (default: %(default)s)",
                         choices=["QChem", "Orca", "Molpro", "PyTC", "TeraChemCloud", "OpenMM", "DFTB", "TeraChem",
                                  "BAGEL", "Gaussian"])
+    parser.add_argument('-working_directory', type=str, default='',help='working directory for running qc package')
+    parser.add_argument('-command', type=str, default='',help='comamnd for running the package')
     parser.add_argument('-lot_inp_file', type=str, default=None,
                         help='external file to specify calculation e.g. qstart,gstart,etc. Highly package specific.',
                         required=False)
@@ -129,6 +131,19 @@ def parse_arguments(verbose=True):
 
     args = parser.parse_args()
 
+    if args.command == '' and args.package == 'Gaussian':
+        print ('Give us command for running the program!!!')
+        exit()
+
+    if args.working_directory == '':
+        working_directory = os.path.join(os.getcwd(),'scratch')
+    else:
+        working_directory = args.working_directory
+
+    if not os.path.exists(working_directory):
+        print ('Working directory is not defined!!!')
+        exit()    
+
     if verbose:
         print_msg()
 
@@ -161,6 +176,8 @@ def parse_arguments(verbose=True):
         'xTB_accuracy': args.xTB_accuracy,
         'xTB_electronic_temperature': args.xTB_electronic_temperature,
         'solvent': args.solvent,
+        'working_directory':working_directory,
+        'command':args.command,
 
         # PES
         'PES_type': args.pes_type,
@@ -272,6 +289,8 @@ def create_lot(inpfileq: dict, geom):
 
     est_package = importlib.import_module("level_of_theories." + lot_name.lower())
     lot_class = getattr(est_package, lot_name)
+    lot_class.working_directory = inpfileq['working_directory']
+    lot_class.command = inpfileq['command']
     return lot_class.from_options(**lot_options)
 
 

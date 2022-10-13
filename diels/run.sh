@@ -1,4 +1,4 @@
-export PYTHONPATH=~/works/auto_ts/pyGSM/pygsm/
+export PYTHONPATH=~/codes/pyGSM-Gaussian/pygsm/
 
 conda activate pygsm
 
@@ -10,4 +10,5 @@ python -u ../pygsm/wrappers/main.py  -xyzfile R.xyz  \
     -lot_inp_file gstart \
     -ID 1 \
     -coordinate_type DLC \
-    -max_gsm_iters 30
+    -max_gsm_iters 30 \
+    -command g16

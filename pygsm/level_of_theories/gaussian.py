@@ -11,19 +11,6 @@ import cclib
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from .base_lot import Lot
 
-# standard library imports
-import sys
-import os
-from os import path
-
-# third party
-import numpy as np
-import cclib
-
-# local application imports
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-from .base_lot import Lot
-
 class Gaussian(Lot):
 
     def write_input_file(self, geom, multiplicity):
@@ -59,10 +46,9 @@ class Gaussian(Lot):
     def run(self, geom, multiplicity, ad_idx, runtype='gradient'):
 
         # Write input file
-        command = 'g09'
         filename = 'force'
         directory = self.write_input_file(geom, multiplicity)
-        cmd = f'{command} {directory}'
+        cmd = f'{self.command} {directory}'
         current_directory = os.getcwd()
         os.system(f'cd {self.working_directory}')
         os.system(cmd)
